@@ -46,6 +46,17 @@
 	box-sizing: border-box;
 }
 
+.company-percentage.positive {
+	color: green;
+}
+
+.company-percentage.negative {
+	color: red;
+}
+
+.hidden { 
+	display: none !important;
+}
 .cssload-jumping span {
 	display: inline-block;
 	height: 15px;

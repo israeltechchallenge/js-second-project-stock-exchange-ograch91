@@ -1,32 +1,134 @@
-function getCompanyProfile(symbol) {
-	// get symbol profile data
+// Elemnts
+const globalContainer = makeElement('div', { className: 'global-container' });
+const profileContainer = makeElement('div', { className: 'profile-container' });
+const chartContainer = makeElement('div', { className: 'chart-container' });
+
+globalContainer.append(profileContainer, chartContainer);
+document.body.append(globalContainer);
+
+const getCompanyProfile = async (symbol) => {
 	const searchUrl = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
-	fetch(searchUrl).then((response) => {
-		if (response.ok === true) response.json().then(handleResponse);
+	let response = await fetch(searchUrl);
+	if (!response.ok) {
+		return console.warn('Bad response from server', response);
+	}
+	let data = await response.json();
+	if (!data || !data.profile) {
+		return console.warn('No data from server');
+	}
+	console.log(data);
+	const profile = data.profile;
+	createProfileElements(profile);
+};
+
+function createProfileElements(compProfile) {
+	const companyImg = makeElement('img', {
+		className: 'company-img',
+		src: compProfile.image,
+		alt: 'Company Image',
 	});
 
-	function handleResponse(dataFromServer) {
-		console.log(dataFromServer);
-    // dataFromServer.description
-    // dataFromServer.image
-    // dataFromServer.price
-    // dataFromServer.changesPercentage or dataFromServer.changes
-    
+	let companyNameText;
+	if (compProfile.industry)
+		companyNameText = `${compProfile.companyName} (${compProfile.industry})`;
+	else companyNameText = `${compProfile.companyName}`;
+
+	const companyNameIndustry = makeElement('h1', {
+		className: 'company-name-industry',
+		innerText: companyNameText,
+	});
+
+	let currency;
+	if (compProfile.currency == 'USD') currency = '$';
+	else currency = compProfile.currency;
+
+	const companyPrice = makeElement('p', {
+		className: 'company-price',
+		innerText: `Stock Price: ${currency}${compProfile.price} `,
+	});
+
+	let percentNum = compProfile.changesPercentage;
+	let percentText = parseFloat(percentNum).toFixed(2) + '%';
+	let percentSign, percentCss;
+	if (percentNum >= 0) {
+		percentSign = '+';
+		percentCss = 'positive';
 	}
-	// TODO: this function will get the symbol to request, fetch data from API, and call subsequent methods to show - image, title, descr...
+	else{
+		percentSign = '';
+		percentCss = 'negative';
+
+	}
+
+	const companyPercentage = makeElement('span', {
+		className: `company-percentage ${percentCss}`,
+		innerText: `(${percentSign}${percentText})`,
+	});
+
+	const companyDescription = makeElement('p', {
+		className: 'company-description',
+		innerText: compProfile.description,
+	});
+
+	companyPrice.append(companyPercentage);
+
+	profileContainer.append(
+		companyImg,
+		companyNameIndustry,
+		companyPrice,
+		companyDescription
+	);
 }
 
-function getStockPriceHistory(symbol) {
-	// get symbol stock price history
-	const searchUrl = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line`;
-	fetch(searchUrl).then((response) => {
-		if (response.ok === true) response.json().then(handleResponse);
-	});
-
-	function handleResponse(dataFromServer) {
-		console.log(dataFromServer);
+const getStockPriceHistory = async (symbol) => {
+	const searchUrl = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/historical-price-full/${symbol}?serietype=line&timeseries=60`;
+	let response = await fetch(searchUrl);
+	if (!response.ok) {
+		return console.warn('Bad response from server', response);
 	}
-	// TODO: this method will fetch all / partial data from API, to be able to display GRAPH of stock history
+	let data = await response.json();
+	printStockHistory(data);
+};
+
+function printStockHistory(dataFromServer) {
+	if (!dataFromServer || !dataFromServer.historical) {
+		return console.warn('No data from server');
+	}
+
+	const historical = dataFromServer.historical;
+	closePrice = historical.map((x) => x.close);
+	closeDate = historical.map((x) => x.date);
+	// createProfileElements(profile)
+	const chartConfig = {
+		type: 'line',
+		data: {
+			labels: closeDate,
+			datasets: [
+				{
+					fill: {
+						target: 'origin',
+					},
+					label: 'Stock Price History',
+					backgroundColor: '#00c9b7',
+					borderColor: '#00c9b7',
+					data: closePrice,
+				},
+			],
+		},
+		options: {
+			// starting point of stock price
+			// scales: {
+			// 	y: {
+			// 		type: 'linear',
+			// 		// min: 0,
+			// 	},
+			// },
+		},
+	};
+
+	const chartArea = makeElement('canvas');
+	chartContainer.append(chartArea);
+	const myChart = new Chart(chartArea, chartConfig);
 }
 
 function getSymbolFromQuery() {
@@ -35,6 +137,13 @@ function getSymbolFromQuery() {
 	//default fallback in case param is missing/empty
 	const symbolValue = urlSearchParams.get('symbol') || 'AAPL';
 	return symbolValue;
-	// const params = Object.fromEntries(urlSearchParams.entries());
-	// ref: https://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript#:~:text=%3B%20//%20%22some_value%22-,Update%3A%20June%2D2021,-For%20a%20specific
 }
+
+window.onload = function () {
+	const symbolParam = getSymbolFromQuery();
+	const profile = getCompanyProfile(symbolParam);
+	const stock = getStockPriceHistory(symbolParam);
+	Promise.all([profile, stock]).then(() => {
+		document.querySelector('.cssload-jumping').classList.add('hidden');
+	});
+};

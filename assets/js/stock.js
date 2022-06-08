@@ -1,5 +1,4 @@
 // Elements
-//todo: migrate to function created elements
 const mainContainer = makeElement('div', { className: 'main-container' });
 const formContainer = makeElement('div', { className: 'form-container' });
 const resultsContainer = makeElement('div', { className: 'results-container' });
@@ -19,23 +18,7 @@ resultsContainer.append(resultsList);
 mainContainer.append(formContainer, resultsContainer);
 document.body.append(mainContainer);
 
-// GILA: ALL THE ABOVE --- common code
-
-// Functions
-function makeElement(type, elementOptions) {   // GILA: common code
-	const domElm = document.createElement(type);
-	if (!elementOptions) return domElm;
-
-  // update DOM elements with CSS class etc..
-	// if (elementOptions.className) domElm.className = elementOptions.className;
-	// if (elementOptions.innerText) domElm.innerText = elementOptions.innerText;
-	// if (elementOptions.placeholder) domElm.placeholder = elementOptions.placeholder;
-
-  //better way with assign function ref: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
-  Object.assign(domElm, elementOptions);
-	return domElm;
-}
-
+// // Functions
 function fillLoader(isLoading) {
 	if (isLoading) {
 		searchButton.disabled = true;
@@ -57,7 +40,6 @@ function getDataFromServer(stockSymbol) {
 			if (response.ok === true) response.json().then(handleResponse);
 		})
 		.finally(() => fillLoader(false));
-
 	function handleResponse(dataFromServer) {
 		dataFromServer.forEach(appendResult);
 	}
@@ -67,7 +49,6 @@ function searchHandler() {
 	fillLoader(true);
 	// get user input
 	const input = inputField.value;
-
 	const removeItems = [...resultsList.children];
 	removeItems.forEach((li) => li.remove());
 
@@ -78,13 +59,12 @@ function searchHandler() {
 }
 
 function userEnterSearch(event) {
-	if (event.key === "Enter") {
+	if (event.key === 'Enter') {
 		searchHandler();
 	}
 }
 
 function appendResult(resultObj) {
-	console.log(resultObj.symbol, resultObj.name);
 	const item = document.createElement('li');
 	item.className = 'result-item';
 	item.innerHTML = `<a href='./company.html?symbol=${resultObj.symbol}' target="_blank">${resultObj.name} (${resultObj.symbol})</a>`;
@@ -93,11 +73,7 @@ function appendResult(resultObj) {
 
 // Event listeners
 searchButton.addEventListener('click', searchHandler);
-//todo: add listener for enter key
-inputField.addEventListener('keydown', userEnterSearch)
-
-// inputField.addEventListener();
-
+inputField.addEventListener('keydown', userEnterSearch);
 
 // TODO: add all "html init" methods to an "onLoad" method
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event#examples
