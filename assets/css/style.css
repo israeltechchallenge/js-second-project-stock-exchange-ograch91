@@ -3,8 +3,55 @@
   padding: 0;
 }
 
-.main-container{
+.backgr {
+  background-image: linear-gradient(
+    to left top,
+    #051937,
+    #292d52,
+    #4c426c,
+    #715786,
+    #986e9f,
+    #a072a6,
+    #a775ad,
+    #af79b4,
+    #956bac,
+    #795da4,
+    #59519b,
+    #314692
+  );
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.result-item-container {
+  list-style-type: none;
+  border: 1px solid #ddd;
+  margin-top: -1px;
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.main-container {
   margin-inline: 10%;
+}
+
+.result-item-container:nth-child(odd) {
+  background: #dafcf4;
+}
+
+.result-item-container:nth-child(even) {
+  background: #cadfed;
 }
 
 .form-container {
@@ -17,10 +64,30 @@
 .search-button {
   width: 20%;
   min-width: 200px;
+  margin-bottom: 12px;
 }
 
 .input-field {
   width: 80%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  /* background-image: url(/css/searchicon.png);
+  background-position: 10px 12px;
+  background-repeat: no-repeat; */
+}
+
+.company-img {
+  max-height: 144px;
+  aspect-ratio: 1/1;
+  padding: auto;
+}
+
+.company-description {
+  margin-block: 1rem;
+  text-align: justify;
+  margin-inline: 1.5rem;
 }
 
 .result-item {
@@ -32,168 +99,251 @@
   width: 100%;
   padding-top: 25px;
   flex-direction: column;
-  
 }
 
+.global-container {
+  max-width: 100vh;
+  width: 80%;
+  margin: auto;
+  border: 1px solid;
+  border-radius: 1%;
+  padding: 15px;
+  margin-top: 50px;
+  background-color: rgba(217, 252, 244, 0.8);
+}
+
+.info-container {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
 /* css for spinner - from https://icons8.com/cssload/en/horizontal-bars/4 */
-.cssload-jumping{
-	position:relative;
-	display:block;
-	
-}
-	
-.cssload-jumping, .cssload-jumping * {
-	box-sizing: border-box;
+.cssload-jumping {
+  position: relative;
+  display: block;
 }
 
-.company-percentage.positive {
-	color: green;
+.search-result-img {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  /* width: ; */
+}
+.cssload-jumping,
+.cssload-jumping * {
+  box-sizing: border-box;
 }
 
-.company-percentage.negative {
-	color: red;
+.positive {
+  color: green;
 }
 
-.hidden { 
-	display: none !important;
+.negative {
+  color: red;
+}
+
+.hidden {
+  display: none !important;
 }
 .cssload-jumping span {
-	display: inline-block;
-	height: 15px;
-	width: 15px;
-	background: rgb(47,172,155);
-	border-radius: 487px;
-	background-clip: padding-box;
-		-o-background-clip: padding-box;
-		-ms-background-clip: padding-box;
-		-webkit-background-clip: padding-box;
-		-moz-background-clip: padding-box;
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  background: rgb(47, 172, 155);
+  border-radius: 487px;
+  background-clip: padding-box;
+  -o-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
 }
 
 .cssload-jumping span:nth-child(1) {
-	animation: scale 1.15s 0.12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-o-animation: scale 1.15s 0.12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-ms-animation: scale 1.15s 0.12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-webkit-animation: scale 1.15s 0.12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-moz-animation: scale 1.15s 0.12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  animation: scale 1.15s 0.12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.12s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.12s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.12s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.12s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 .cssload-jumping span:nth-child(2) {
-	animation: scale 1.15s 0.23s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-o-animation: scale 1.15s 0.23s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-ms-animation: scale 1.15s 0.23s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-webkit-animation: scale 1.15s 0.23s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-moz-animation: scale 1.15s 0.23s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  animation: scale 1.15s 0.23s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.23s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.23s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.23s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.23s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 .cssload-jumping span:nth-child(3) {
-	animation: scale 1.15s 0.35s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-o-animation: scale 1.15s 0.35s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-ms-animation: scale 1.15s 0.35s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-webkit-animation: scale 1.15s 0.35s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-moz-animation: scale 1.15s 0.35s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  animation: scale 1.15s 0.35s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.35s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.35s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.35s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.35s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 .cssload-jumping span:nth-child(4) {
-	animation: scale 1.15s 0.46s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-o-animation: scale 1.15s 0.46s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-ms-animation: scale 1.15s 0.46s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-webkit-animation: scale 1.15s 0.46s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-moz-animation: scale 1.15s 0.46s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  animation: scale 1.15s 0.46s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.46s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.46s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.46s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.46s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 .cssload-jumping span:nth-child(5) {
-	animation: scale 1.15s 0.58s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-o-animation: scale 1.15s 0.58s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-ms-animation: scale 1.15s 0.58s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-webkit-animation: scale 1.15s 0.58s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
-		-moz-animation: scale 1.15s 0.58s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  animation: scale 1.15s 0.58s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.58s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.58s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.58s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.58s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
 }
 
-
-
 @keyframes scale {
-	0% {
-		transform: scale(0);
-	}
-	25% {
-		transform: scale(0.9, 0.9);
-		background: rgb(147,225,215);
-	}
-	50% {
-		transform: scale(1, 1);
-		margin: 0 3px;
-		background: rgb(47,172,155);
-	}
-	100% {
-		transform: scale(0);
-	}
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    transform: scale(0);
+  }
 }
 
 @-o-keyframes scale {
-	0% {
-		-o-transform: scale(0);
-	}
-	25% {
-		-o-transform: scale(0.9, 0.9);
-		background: rgb(147,225,215);
-	}
-	50% {
-		-o-transform: scale(1, 1);
-		margin: 0 3px;
-		background: rgb(47,172,155);
-	}
-	100% {
-		-o-transform: scale(0);
-	}
+  0% {
+    -o-transform: scale(0);
+  }
+  25% {
+    -o-transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    -o-transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    -o-transform: scale(0);
+  }
 }
 
 @-ms-keyframes scale {
-	0% {
-		-ms-transform: scale(0);
-	}
-	25% {
-		-ms-transform: scale(0.9, 0.9);
-		background: rgb(147,225,215);
-	}
-	50% {
-		-ms-transform: scale(1, 1);
-		margin: 0 3px;
-		background: rgb(47,172,155);
-	}
-	100% {
-		-ms-transform: scale(0);
-	}
+  0% {
+    -ms-transform: scale(0);
+  }
+  25% {
+    -ms-transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    -ms-transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    -ms-transform: scale(0);
+  }
 }
 
 @-webkit-keyframes scale {
-	0% {
-		-webkit-transform: scale(0);
-	}
-	25% {
-		-webkit-transform: scale(0.9, 0.9);
-		background: rgb(147,225,215);
-	}
-	50% {
-		-webkit-transform: scale(1, 1);
-		margin: 0 3px;
-		background: rgb(47,172,155);
-	}
-	100% {
-		-webkit-transform: scale(0);
-	}
+  0% {
+    -webkit-transform: scale(0);
+  }
+  25% {
+    -webkit-transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    -webkit-transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    -webkit-transform: scale(0);
+  }
 }
 
 @-moz-keyframes scale {
-	0% {
-		-moz-transform: scale(0);
-	}
-	25% {
-		-moz-transform: scale(0.9, 0.9);
-		background: rgb(147,225,215);
-	}
-	50% {
-		-moz-transform: scale(1, 1);
-		margin: 0 3px;
-		background: rgb(47,172,155);
-	}
-	100% {
-		-moz-transform: scale(0);
-	}
+  0% {
+    -moz-transform: scale(0);
+  }
+  25% {
+    -moz-transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    -moz-transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    -moz-transform: scale(0);
+  }
+}
+
+.marquee {
+  width: 100%;
+  line-height: 50px;
+  background-color: transparent;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.marquee > div {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee > div:hover {
+  animation-play-state: paused;
+}
+
+.marquee * {
+  display: inline;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+.sticky {
+  position: static;
 }
