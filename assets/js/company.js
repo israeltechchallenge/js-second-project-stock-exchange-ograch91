@@ -87,10 +87,10 @@ function printStockHistory(dataFromServer) {
     return console.warn("No data from server");
   }
 
-  const historical = dataFromServer.historical;
+  const historical = dataFromServer.historical.reverse();
   closePrice = historical.map((x) => x.close);
   closeDate = historical.map((x) => x.date);
-  // createProfileElements(profile)
+
   const chartConfig = {
     type: "line",
     data: {

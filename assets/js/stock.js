@@ -33,15 +33,23 @@ function fillLoader(isLoading) {
   }
 }
 
-function getDataFromServer(stockSymbol) {
+let lastSearchQuery = "";
+
+async function getDataFromServer(stockSymbol) {
   const searchUrl = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${stockSymbol}&limit=10&exchange=NASDAQ`;
-  fetch(searchUrl)
-    .then((response) => {
-      if (response.ok === true) response.json().then(handleResponse);
-    })
-    .finally(() => fillLoader(false));
-  function handleResponse(dataFromServer) {
-    dataFromServer.forEach(createResultLine);
+  try {
+    let response = await fetch(searchUrl);
+    let data = await response.json();
+    if (!data || !Array.isArray(data)) {
+      return console.warn("No data from server");
+    }
+
+    lastSearchQuery = stockSymbol;
+    let promAllLines = data.map(createResultLine);
+    const createdLines = await Promise.all(promAllLines);
+    resultsList.append(...createdLines);
+  } finally {
+    fillLoader(false);
   }
 }
 
@@ -76,11 +84,23 @@ const createResultLine = async (resultObj) => {
     src: profile.image,
   });
 
+  let linkText = `${resultObj.name} (${resultObj.symbol})`;
+  let res = splitBySearch(linkText, lastSearchQuery);
+
+  if (res) {
+    linkText =
+      res.split[0] +
+      `<span class='searched-found'>` +
+      res.split[1] +
+      `</span>` +
+      res.split[2];
+  }
+
   const link = makeElement("a", {
     className: "search-result-img",
     href: `./company.html?symbol=${resultObj.symbol}`,
     target: "_blank",
-    innerText: `${resultObj.name} (${resultObj.symbol})`,
+    innerHTML: linkText,
   });
 
   let percent = getPrecentInfo(profile.changesPercentage);
@@ -91,7 +111,7 @@ const createResultLine = async (resultObj) => {
   });
 
   itemContainer.append(image, link, stockChange);
-  resultsList.append(itemContainer);
+  //   resultsList.append(itemContainer);
 
   return itemContainer;
 };
@@ -134,7 +154,7 @@ const GetMarqueeData = async () => {
   for (const element of data) {
     const symbolMarquee = makeElement("p", {
       className: "symbol-marquee",
-      innerText: `${element.symbol} `,
+      innerHTML: `${element.symbol} &nbsp;`,
     });
     const sign = getCssSign(element.changesPercentage);
     const symbolPrice = makeElement("span", {
@@ -142,7 +162,8 @@ const GetMarqueeData = async () => {
       innerText: `${element.price}`,
     });
 
-    marqueeContainer.append(symbolMarquee, symbolPrice);
+    symbolMarquee.append(symbolPrice);
+    marqueeContainer.append(symbolMarquee);
   }
 
   const domContainer = document.querySelector(".marquee-content");
@@ -154,3 +175,21 @@ const GetMarqueeData = async () => {
 
 // TODO: run this line from onload
 GetMarqueeData();
+
+const splitBySearch = (text, pattern) => {
+  let pos = text.indexOf(pattern);
+  if (pos == -1) {
+    return; //"Not Found Result"
+  }
+  let end = pos + pattern.length;
+
+  let before = text.substring(0, pos);
+  let inside = text.substring(pos, end);
+  let after = text.substring(end);
+
+  return {
+    split: [before, inside, after],
+    pos: pos,
+    origin: text,
+  };
+};
