@@ -138,50 +138,19 @@ inputField.addEventListener("keydown", userEnterSearch);
 // TODO: add all "html init" methods to an "onLoad" method
 // https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event#examples
 
-const GetMarqueeData = async () => {
-  const searchUrl = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/quotes/`;
-  let response = await fetch(searchUrl);
-  if (!response.ok) {
-    return console.warn("Bad response from server", response);
-  }
-  let data = await response.json();
-  if (!data) {
-    return console.warn("No data from server");
-  }
 
-  const marqueeContainer = makeElement("div");
 
-  for (const element of data) {
-    const symbolMarquee = makeElement("p", {
-      className: "symbol-marquee",
-      innerHTML: `${element.symbol} &nbsp;`,
-    });
-    const sign = getCssSign(element.changesPercentage);
-    const symbolPrice = makeElement("span", {
-      className: `symbol-price ${sign}`,
-      innerText: `${element.price}`,
-    });
 
-    symbolMarquee.append(symbolPrice);
-    marqueeContainer.append(symbolMarquee);
-  }
-
-  const domContainer = document.querySelector(".marquee-content");
-  domContainer.innerHTML = "";
-
-  domContainer.style = `animation-duration: ${0.8 * data.length}s ;`;
-  domContainer.append(marqueeContainer);
-};
-
-// TODO: run this line from onload
-GetMarqueeData();
-
+// consider making iterable class
 const splitBySearch = (text, pattern) => {
   let pos = text.indexOf(pattern);
   if (pos == -1) {
     return; //"Not Found Result"
   }
   let end = pos + pattern.length;
+
+  //todo: add case insensetive support
+  //todo: add support for more than one occurance
 
   let before = text.substring(0, pos);
   let inside = text.substring(pos, end);

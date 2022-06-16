@@ -1,11 +1,9 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 15px;
 }
-
-
 
 .backgr {
   background-image: linear-gradient(
@@ -134,7 +132,7 @@
 }
 
 .searched-found {
-  background-color: #A8EB12;
+  background-color: #a8eb12;
 }
 
 /* css for spinner - from https://icons8.com/cssload/en/horizontal-bars/4 */
@@ -328,8 +326,6 @@
   padding-left: 10px;
 }
 
-
-
 .marquee {
   width: 100%;
   line-height: 50px;
@@ -340,19 +336,18 @@
   box-sizing: border-box;
 }
 
-.marquee > div {
+.marquee-content {
   display: inline-block;
   padding-left: 100%;
   animation: marquee 30s linear infinite;
-  background: rgba(184,154,194, 0.4);
-
+  background: rgba(184, 154, 194, 0.4);
 }
 
-.marquee > div:hover {
+.marquee-content:hover {
   animation-play-state: paused;
 }
 
-.marquee * {
+.marquee-content * {
   display: inline;
 }
 
@@ -363,8 +358,4 @@
   100% {
     transform: translate(-100%, 0);
   }
-}
-
-.sticky {
-  position: static;
 }

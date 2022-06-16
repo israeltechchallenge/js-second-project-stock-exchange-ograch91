@@ -1,3 +1,7 @@
+window.onload = async function () {
+  const marContainer = document.querySelector(".marquee-content");
+  const marquee = new Marquee(marContainer);
+  marquee.start();
 
-// TODO: move any NON-common code from 'stock.js' to this file
 
+};

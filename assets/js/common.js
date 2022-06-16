@@ -1,7 +1,3 @@
-// TODO: code / methods which belong in all files go here
-// Elements
-
-// Functions
 function makeElement(type, elementOptions) {
   const domElm = document.createElement(type);
   if (!elementOptions) return domElm;
