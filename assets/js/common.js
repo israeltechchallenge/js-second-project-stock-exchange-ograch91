@@ -37,3 +37,44 @@ const getCssSign = (num) => {
   }
   return sign;
 };
+
+const getCompanyProfile = async (symbol) => {
+  const searchUrl = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
+  let response = await fetch(searchUrl);
+  if (!response.ok) {
+    return console.warn("Bad response from server", response);
+  }
+  let data = await response.json();
+  if (!data || !data.profile) {
+    return console.warn("No data from server");
+  }
+
+  const profile = data.profile;
+  return profile;
+};
+
+// todo: concider making a generic "GetJsonFromServer"
+//       with data validation as callback.
+//       put all API related code here / in another file
+
+// consider making iterable class
+const splitBySearch = (text, pattern) => {
+  let pos = text.indexOf(pattern);
+  if (pos == -1) {
+    return; //"Not Found Result"
+  }
+  let end = pos + pattern.length;
+
+  //todo: add case insensetive support
+  //todo: add support for more than one occurance
+
+  let before = text.substring(0, pos);
+  let inside = text.substring(pos, end);
+  let after = text.substring(end);
+
+  return {
+    split: [before, inside, after],
+    pos: pos,
+    origin: text,
+  };
+};

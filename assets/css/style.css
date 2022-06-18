@@ -5,6 +5,14 @@
   font-size: 15px;
 }
 
+.page-title{
+  font-size: revert;
+  margin-top: 2rem;
+  text-align: center;
+  text-shadow: 4px -3px 4px #292d52bf;
+  color: blanchedalmond;
+}
+
 .backgr {
   background-image: linear-gradient(
     to left top,
@@ -75,15 +83,13 @@
   padding: 12px 20px 12px 40px;
   border: 1px solid #ddd;
   margin-bottom: 12px;
-  /* background-image: url(/css/searchicon.png);
-  background-position: 10px 12px;
-  background-repeat: no-repeat; */
 }
 
 .company-img {
   max-height: 144px;
   aspect-ratio: 1/1;
   padding: auto;
+  border-radius: 10px;
 }
 
 .company-description {
@@ -105,6 +111,7 @@
 
 .global-container {
   max-width: 100vh;
+  min-height: 70vh;
   width: 80%;
   margin: auto;
   border: 1px solid;
@@ -135,21 +142,11 @@
   background-color: #a8eb12;
 }
 
-/* css for spinner - from https://icons8.com/cssload/en/horizontal-bars/4 */
-.cssload-jumping {
-  position: relative;
-  display: block;
-}
-
 .search-result-img {
   display: flex;
   align-items: center;
   height: 40px;
   /* width: ; */
-}
-.cssload-jumping,
-.cssload-jumping * {
-  box-sizing: border-box;
 }
 
 .positive {
@@ -160,9 +157,67 @@
   color: red;
 }
 
+.symbol-marquee {
+  padding-left: 10px;
+}
+
+.marquee {
+  width: 100%;
+  line-height: 50px;
+  background-color: transparent;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.marquee-content {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 30s linear infinite;
+  background: rgba(184, 154, 194, 0.4);
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.marquee-content * {
+  display: inline;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
 .hidden {
   display: none !important;
 }
+/* css for spinner - from https://icons8.com/cssload/en/horizontal-bars/4 */
+.page-load.cssload-jumping {
+  position: relative;
+  display: block;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+
+  width: 10em;
+  margin-top: 9rem;
+  text-align: center;
+}
+
+.cssload-jumping,
+.cssload-jumping * {
+  box-sizing: border-box;
+}
+
 .cssload-jumping span {
   display: inline-block;
   height: 15px;
@@ -319,43 +374,5 @@
   }
   100% {
     -moz-transform: scale(0);
-  }
-}
-
-.symbol-marquee {
-  padding-left: 10px;
-}
-
-.marquee {
-  width: 100%;
-  line-height: 50px;
-  background-color: transparent;
-  color: white;
-  white-space: nowrap;
-  overflow: hidden;
-  box-sizing: border-box;
-}
-
-.marquee-content {
-  display: inline-block;
-  padding-left: 100%;
-  animation: marquee 30s linear infinite;
-  background: rgba(184, 154, 194, 0.4);
-}
-
-.marquee-content:hover {
-  animation-play-state: paused;
-}
-
-.marquee-content * {
-  display: inline;
-}
-
-@keyframes marquee {
-  0% {
-    transform: translate(0, 0);
-  }
-  100% {
-    transform: translate(-100%, 0);
   }
 }

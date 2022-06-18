@@ -1,12 +1,10 @@
 class Marquee {
-  
   constructor(domContainer) {
     this.container = domContainer;
-    
   }
 
   start() {
-    this.GetMarqueeData()
+    this.GetMarqueeData();
   }
 
   async GetMarqueeData() {
@@ -19,9 +17,9 @@ class Marquee {
     if (!data) {
       return console.warn("No data from server");
     }
-  
+
     const marqueeContainer = makeElement("div");
-  
+
     for (const element of data) {
       const symbolMarquee = makeElement("p", {
         className: "symbol-marquee",
@@ -32,16 +30,16 @@ class Marquee {
         className: `symbol-price ${sign}`,
         innerText: `${element.price}`,
       });
-  
+
       symbolMarquee.append(symbolPrice);
       marqueeContainer.append(symbolMarquee);
     }
-  
+
     const domContainer = this.container;
-    
+
     domContainer.innerHTML = "";
-  
+
     domContainer.style = `animation-duration: ${0.8 * data.length}s ;`;
     domContainer.append(marqueeContainer);
-  };
+  }
 }

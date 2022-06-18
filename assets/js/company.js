@@ -6,20 +6,6 @@ const chartContainer = makeElement("div", { className: "chart-container" });
 globalContainer.append(profileContainer, chartContainer);
 document.body.append(globalContainer);
 
-const getCompanyProfile = async (symbol) => {
-  const searchUrl = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
-  let response = await fetch(searchUrl);
-  if (!response.ok) {
-    return console.warn("Bad response from server", response);
-  }
-  let data = await response.json();
-  if (!data || !data.profile) {
-    return console.warn("No data from server");
-  }
-  const profile = data.profile;
-  createProfileElements(profile);
-};
-
 function createProfileElements(compProfile) {
   const titleContainer = makeElement("div", {
     className: "title-container",
@@ -131,9 +117,10 @@ function getSymbolFromQuery() {
   return symbolValue;
 }
 
-window.onload = function () {
+window.onload = async function () {
   const symbolParam = getSymbolFromQuery();
-  const profile = getCompanyProfile(symbolParam);
+  const profile = await getCompanyProfile(symbolParam);
+  createProfileElements(profile);
   const stock = getStockPriceHistory(symbolParam);
   Promise.all([profile, stock]).then(() => {
     document.querySelector(".cssload-jumping").classList.add("hidden");
