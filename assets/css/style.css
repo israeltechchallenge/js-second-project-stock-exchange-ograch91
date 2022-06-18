@@ -1,11 +1,11 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Poppins", sans-serif;
+  font-family: 'Poppins', sans-serif;
   font-size: 15px;
 }
 
-.page-title{
+.page-title {
   font-size: revert;
   margin-top: 2rem;
   text-align: center;
@@ -52,6 +52,23 @@
   align-items: center;
   gap: 10px;
 }
+
+.result-item-container.no-item {
+  justify-content: center;
+  background-image: linear-gradient(
+    to right,
+    #be4545,
+    #c05050,
+    #c15b5a,
+    #c26565,
+    #c26f6f
+  ) !important;
+}
+
+.no-item .search-result-text {
+  font-size: larger;
+}
+
 .main-container {
   margin-inline: 10%;
 }

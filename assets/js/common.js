@@ -12,69 +12,90 @@ function makeElement(type, elementOptions) {
   return domElm;
 }
 
-const getPrecentInfo = (profileNum) => {
+const getPrecentInfo = profileNum => {
   let percent = {};
   percent.num = profileNum; //;
-  percent.text = parseFloat(percent.num).toFixed(2) + "%";
+  percent.text = parseFloat(percent.num).toFixed(2) + '%';
   percent.Sign;
   percent.Css;
   if (percent.num >= 0) {
-    percent.Sign = "+";
-    percent.Css = "positive";
+    percent.Sign = '+';
+    percent.Css = 'positive';
   } else {
-    percent.Sign = "";
-    percent.Css = "negative";
+    percent.Sign = '';
+    percent.Css = 'negative';
   }
   return percent;
 };
 
-const getCssSign = (num) => {
+const getCssSign = num => {
   let sign;
   if (num >= 0) {
-    sign = "positive";
+    sign = 'positive';
   } else {
-    sign = "negative";
+    sign = 'negative';
   }
   return sign;
 };
 
-const getCompanyProfile = async (symbol) => {
+const getCompanyProfile = async symbol => {
   const searchUrl = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/company/profile/${symbol}`;
-  let response = await fetch(searchUrl);
-  if (!response.ok) {
-    return console.warn("Bad response from server", response);
-  }
-  let data = await response.json();
+  const data = await getJsonFromServer(searchUrl);
   if (!data || !data.profile) {
-    return console.warn("No data from server");
+    return console.warn("Expected data 'data.profile' was not found");
   }
-
   const profile = data.profile;
   return profile;
 };
 
-// todo: concider making a generic "GetJsonFromServer"
-//       with data validation as callback.
-//       put all API related code here / in another file
+async function getJsonFromServer(apiUrl) {
+  let response = await fetch(apiUrl);
+  if (!response.ok) {
+    return console.warn('Bad response from server', response);
+  }
+  let data = await response.json();
+  if (!data) {
+    return console.warn('No data from server');
+  }
+  return data;
+}
 
 // consider making iterable class
-const splitBySearch = (text, pattern) => {
-  let pos = text.indexOf(pattern);
-  if (pos == -1) {
-    return; //"Not Found Result"
+const splitAllBySearch = (text, pattern) => {
+  const regex = new RegExp(pattern, 'ig');
+  const matches = text.matchAll(regex);
+
+  const allMatched = [];
+  let endOfPrev = 0;
+
+  for (const hit of matches) {
+    let pos = hit.index;
+    let end = pos + pattern.length;
+
+    let before = text.substring(endOfPrev, pos);
+    let inside = hit[0]; // using what regex already found
+
+    allMatched.push({ before, inside, pos });
+    endOfPrev = end;
   }
-  let end = pos + pattern.length;
 
-  //todo: add case insensetive support
-  //todo: add support for more than one occurance
+  let after = text.substring(endOfPrev);
 
-  let before = text.substring(0, pos);
-  let inside = text.substring(pos, end);
-  let after = text.substring(end);
+  // if (!matches) {
+  //   return 'Not Found Result';
+  // }
+  // const firstMatch = matches[0];
 
   return {
-    split: [before, inside, after],
-    pos: pos,
-    origin: text,
+    hits: allMatched,
+    after,
+    text,
   };
 };
+
+function fixMissingImage(domImage) {
+  domImage.addEventListener('error', () => {
+    domImage.src = '/assets/img/unknowncompany.png';
+    return true;
+  });
+}

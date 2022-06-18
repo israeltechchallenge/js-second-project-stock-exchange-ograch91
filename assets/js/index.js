@@ -1,6 +1,6 @@
 window.onload = async function () {
   // remove static html use js
-  const marContainer = document.querySelector(".marquee-content");
+  const marContainer = document.querySelector('.marquee-content');
   const marquee = new Marquee(marContainer);
   marquee.start();
 
@@ -9,10 +9,10 @@ window.onload = async function () {
   createMain();
 };
 
-const mainContainer = makeElement("div", { className: "main-container" });
-const formContainer = makeElement("div", { className: "form-container" });
-const resultsContainer = makeElement("div", {
-  className: "results-container",
+const mainContainer = makeElement('div', { className: 'main-container' });
+const formContainer = makeElement('div', { className: 'form-container' });
+const resultsContainer = makeElement('div', {
+  className: 'results-container',
 });
 
 function createMain() {

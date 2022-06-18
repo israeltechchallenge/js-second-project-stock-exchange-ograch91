@@ -1,4 +1,4 @@
-let lastSearchQuery = "";
+let lastSearchQuery = '';
 
 class Search {
   constructor(domContainer, resultsPanel) {
@@ -9,20 +9,20 @@ class Search {
 
   generate() {
     //creating elemnts
-    this.searchButton = makeElement("button", {
-      className: "search-button cssload-jumping",
-      innerText: "Search",
+    this.searchButton = makeElement('button', {
+      className: 'search-button cssload-jumping',
+      innerText: 'Search',
     });
-    this.inputField = makeElement("input", {
-      className: "input-field",
-      placeholder: "Search for company stock symbol",
+    this.inputField = makeElement('input', {
+      className: 'input-field',
+      placeholder: 'Search for company stock symbol',
     });
 
     this.container.append(this.inputField, this.searchButton);
 
     // Event listeners  --- https://stackoverflow.com/a/57963910
-    this.searchButton.addEventListener("click", (e) => this.searchHandler(e));
-    this.inputField.addEventListener("keydown", (e) => this.userEnterSearch(e));
+    this.searchButton.addEventListener('click', e => this.searchHandler(e));
+    this.inputField.addEventListener('keydown', e => this.userEnterSearch(e));
   }
 
   fillLoader(isLoading) {
@@ -30,13 +30,13 @@ class Search {
 
     if (isLoading) {
       searchButton.disabled = true;
-      searchButton.innerHTML = ""; //clear search text
+      searchButton.innerHTML = ''; //clear search text
       for (let i = 0; i < 5; i++) {
-        const loaderDots = document.createElement("span");
+        const loaderDots = document.createElement('span');
         searchButton.append(loaderDots);
       }
     } else {
-      searchButton.innerHTML = "Search";
+      searchButton.innerHTML = 'Search';
       searchButton.disabled = false;
     }
   }
@@ -50,14 +50,14 @@ class Search {
 
     // call server with input
     const data = await this.getDataFromServer(input);
+    if (data) await this.resultsPanel.addAllRes(data);
+    else this.resultsPanel.addNothingFound();
 
-    await this.resultsPanel.addAllRes(data);
     this.fillLoader(false);
-    //todo: add input validation from user
   }
 
   userEnterSearch(event) {
-    if (event.key === "Enter") {
+    if (event.key === 'Enter') {
       this.searchHandler();
     }
   }
@@ -65,16 +65,15 @@ class Search {
   async getDataFromServer(stockSymbol) {
     const searchUrl = `https://stock-exchange-dot-full-stack-course-services.ew.r.appspot.com/api/v3/search?query=${stockSymbol}&limit=10&exchange=NASDAQ`;
     try {
-      let response = await fetch(searchUrl);
-      let data = await response.json();
-      if (!data || !Array.isArray(data)) {
-        return console.warn("No data from server");
+      const data = await getJsonFromServer(searchUrl);
+      if (!data || !Array.isArray(data) || !data.length) {
+        return console.warn("Expected data 'isArray(data)' was not found");
       }
 
       lastSearchQuery = stockSymbol;
       return data;
     } catch {
-      console.error("Search went wrong");
+      console.error('Search went wrong');
     }
   }
 }
