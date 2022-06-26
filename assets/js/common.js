@@ -95,7 +95,7 @@ const splitAllBySearch = (text, pattern) => {
 
 function fixMissingImage(domImage) {
   domImage.addEventListener('error', () => {
-    domImage.src = '/assets/img/unknowncompany.png';
+    domImage.src = './assets/img/unknowncompany.png';
     return true;
   });
 }

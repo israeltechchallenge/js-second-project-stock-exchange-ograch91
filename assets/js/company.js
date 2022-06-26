@@ -124,3 +124,7 @@ window.onload = async function () {
     document.querySelector('.cssload-jumping').classList.add('hidden');
   });
 };
+
+
+// reuse onload function for the compare 3 items 
+// also use the getSymbolFromQuery to sent 3 parameters 
