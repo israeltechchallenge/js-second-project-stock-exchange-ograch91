@@ -1,0 +1,395 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+}
+
+.page-title {
+  font-size: revert;
+  margin-top: 2rem;
+  text-align: center;
+  text-shadow: 4px -3px 4px #292d52bf;
+  color: blanchedalmond;
+}
+
+.backgr {
+  background-image: linear-gradient(
+    to left top,
+    #051937,
+    #292d52,
+    #4c426c,
+    #715786,
+    #986e9f,
+    #a072a6,
+    #a775ad,
+    #af79b4,
+    #956bac,
+    #795da4,
+    #59519b,
+    #314692
+  );
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
+.result-item-container {
+  list-style-type: none;
+  border: 1px solid #ddd;
+  margin-top: -1px;
+  background-color: #f6f6f6;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px;
+  color: black;
+  display: block;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.result-item-container.no-item {
+  justify-content: center;
+  background-image: linear-gradient(
+    to right,
+    #be4545,
+    #c05050,
+    #c15b5a,
+    #c26565,
+    #c26f6f
+  ) !important;
+}
+
+.no-item .search-result-text {
+  font-size: larger;
+}
+
+.main-container {
+  margin-inline: 10%;
+}
+
+.result-item-container:nth-child(odd) {
+  background: #dafcf4;
+}
+
+.result-item-container:nth-child(even) {
+  background: #cadfed;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding-top: 25px;
+}
+
+.search-button {
+  width: 20%;
+  min-width: 200px;
+  margin-bottom: 12px;
+}
+
+.input-field {
+  width: 80%;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+}
+
+.company-img {
+  max-height: 144px;
+  aspect-ratio: 1/1;
+  padding: auto;
+  border-radius: 10px;
+}
+
+.company-description {
+  margin-block: 1rem;
+  text-align: justify;
+  margin-inline: 1.5rem;
+}
+
+.result-item {
+  list-style-type: none;
+}
+
+.results-list {
+  display: flex;
+  width: 100%;
+  padding-top: 25px;
+  flex-direction: column;
+}
+
+.global-container {
+  max-width: 100vh;
+  min-height: 70vh;
+  width: 80%;
+  margin: auto;
+  border: 1px solid;
+  border-radius: 1%;
+  padding: 15px;
+  margin-top: 50px;
+  background-color: rgba(217, 252, 244, 0.8);
+}
+
+.info-container {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.title-container * {
+  font-size: revert;
+}
+
+.searched-found {
+  background-color: #a8eb12;
+}
+
+.search-result-img {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  /* width: ; */
+}
+
+.positive {
+  color: green;
+}
+
+.negative {
+  color: red;
+}
+
+.symbol-marquee {
+  padding-left: 10px;
+}
+
+.marquee {
+  width: 100%;
+  line-height: 50px;
+  background-color: transparent;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.marquee-content {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 30s linear infinite;
+  background: rgba(184, 154, 194, 0.4);
+}
+
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+
+.marquee-content * {
+  display: inline;
+}
+
+@keyframes marquee {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(-100%, 0);
+  }
+}
+
+.hidden {
+  display: none !important;
+}
+/* css for spinner - from https://icons8.com/cssload/en/horizontal-bars/4 */
+.page-load.cssload-jumping {
+  position: relative;
+  display: block;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+
+  width: 10em;
+  margin-top: 9rem;
+  text-align: center;
+}
+
+.cssload-jumping,
+.cssload-jumping * {
+  box-sizing: border-box;
+}
+
+.cssload-jumping span {
+  display: inline-block;
+  height: 15px;
+  width: 15px;
+  background: rgb(47, 172, 155);
+  border-radius: 487px;
+  background-clip: padding-box;
+  -o-background-clip: padding-box;
+  -ms-background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+}
+
+.cssload-jumping span:nth-child(1) {
+  animation: scale 1.15s 0.12s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.12s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.12s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.12s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.12s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.cssload-jumping span:nth-child(2) {
+  animation: scale 1.15s 0.23s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.23s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.23s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.23s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.23s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.cssload-jumping span:nth-child(3) {
+  animation: scale 1.15s 0.35s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.35s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.35s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.35s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.35s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.cssload-jumping span:nth-child(4) {
+  animation: scale 1.15s 0.46s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.46s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.46s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.46s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.46s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+.cssload-jumping span:nth-child(5) {
+  animation: scale 1.15s 0.58s infinite cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -o-animation: scale 1.15s 0.58s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -ms-animation: scale 1.15s 0.58s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -webkit-animation: scale 1.15s 0.58s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+  -moz-animation: scale 1.15s 0.58s infinite
+    cubic-bezier(0.6, -0.28, 0.735, 0.045);
+}
+
+@keyframes scale {
+  0% {
+    transform: scale(0);
+  }
+  25% {
+    transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+
+@-o-keyframes scale {
+  0% {
+    -o-transform: scale(0);
+  }
+  25% {
+    -o-transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    -o-transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    -o-transform: scale(0);
+  }
+}
+
+@-ms-keyframes scale {
+  0% {
+    -ms-transform: scale(0);
+  }
+  25% {
+    -ms-transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    -ms-transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    -ms-transform: scale(0);
+  }
+}
+
+@-webkit-keyframes scale {
+  0% {
+    -webkit-transform: scale(0);
+  }
+  25% {
+    -webkit-transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    -webkit-transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    -webkit-transform: scale(0);
+  }
+}
+
+@-moz-keyframes scale {
+  0% {
+    -moz-transform: scale(0);
+  }
+  25% {
+    -moz-transform: scale(0.9, 0.9);
+    background: rgb(147, 225, 215);
+  }
+  50% {
+    -moz-transform: scale(1, 1);
+    margin: 0 3px;
+    background: rgb(47, 172, 155);
+  }
+  100% {
+    -moz-transform: scale(0);
+  }
+}
